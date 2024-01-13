@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+<body>
+    <%- include('../partials/header.ejs') %>
+    <main>
+        <section class="news section">
+            <div class="container">
+                <div class="news__container wrapper">
+                    <div class="news__title">
+                        <h1 class="title">News Page</h1>
+                        <a href="/news-app" class="button2">New Post</a>
+                    </div>
+                    <div class="news__cards">
+                    <% if (posts.length) { %>
+                        <% posts.forEach(({id, title, createdAt, text, author})=> { %>
+                            <div class="news__card">
+                                <a href="/news/<%= id %>">
+                                    <h4 class="news__header"><%= title %></h4>
+                                </a>
+                                <div class="news__desc"><%= text.slice(0, 100) + '...' %></div>
+                                <div class="news__footer">
+                                    <div class="news__meta">
+                                        <div class="news__author"><%= author %></div>
+                                        <div class="news__date"><%= createdAt.toLocaleDateString() %></div>
+                                    </div>
+                                    <button class="button1" data-id="<%= id%>">Удалить</button>
+                                </div>
+                            </div>
+                        <% }) %>
+                    <% } %>
+                    </div>
+                </div>  
+            </div>
+        </section>
+    </main>
+    <%- include('../partials/footer.ejs') %>
+
+    <script>
+        document.addEventListener('click', (e) => {
+            const id = e.target?.dataset?.id || null;
+            if (id) {
+            fetch(`/news/${id}`, {
+                method: 'DELETE',
+            })
+                .then(() => {
+                window.location.reload();
+                })
+                .catch((error) => {
+                console.log(error)
+                })
+            }
+        })
+    </script>
+</body>
+</html>

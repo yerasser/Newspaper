@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+<body>
+    <%- include('../partials/header.ejs') %>
+    <main>
+        <section class="contact section">
+            <div class="container">
+                <div class="contact__container wrapper">
+                    <h1 class="contact__title title">Contact Page</h1>
+                    <ul class="contact__list">
+                        <% if (socials.length) { %>
+                            <% socials.forEach( ({name, link})=> { %>
+                                <li><a href="<%= link %>" class="contact__item button2"> <%= name %> </a></li>
+                            <% }) %>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+    <%- include('../partials/footer.ejs') %>
+</body>
+</html>
